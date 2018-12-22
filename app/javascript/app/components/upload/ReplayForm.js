@@ -49,10 +49,14 @@ const GET_PLAYERS = gql`
         addAccusation(playerId: $playerId, evidence: $evidence, gameId: $gameId) {
             gamePlayer {
                 ...GamePlayerFields
+                player {
+                    ...PlayerFields
+                }
             }
         }
     }
     ${GamePlayerFields}
+    ${PlayerFields}
 `, {
     options: {
         update: (cache, {data: { addAccusation }}) => {
