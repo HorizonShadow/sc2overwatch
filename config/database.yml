@@ -83,6 +83,6 @@ test:
 #
 production:
   <<: *default
-  database: rails-sc2overwatch_production
-  username: rails-sc2overwatch
+  database: gre_sc2overwatch_production
+  username: gre_sc2overwatch
   password: <%= ENV['RAILS-SC2OVERWATCH_DATABASE_PASSWORD'] %>
