@@ -1,0 +1,8 @@
+fragment GameFields on Game {
+    id
+    map
+    date
+    url
+    format
+    gameType
+}

@@ -1,0 +1,24 @@
+{
+  "name": "sc2overwatch",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "^3.7.0",
+    "@material-ui/icons": "^3.0.1",
+    "@rails/webpacker": "3.5",
+    "apollo-boost": "^0.1.23",
+    "babel-plugin-transform-decorators-legacy": "^1.3.5",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-react": "^6.24.1",
+    "graphql-tag": "^2.10.0",
+    "notistack": "^0.4.1",
+    "prop-types": "^15.6.2",
+    "react": "^16.7.0",
+    "react-apollo": "^2.3.3",
+    "react-dom": "^16.7.0",
+    "react-dropzone": "^8.0.2",
+    "react-router-dom": "^4.3.1"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "2.11.2"
+  }
+}

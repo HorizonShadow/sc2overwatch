@@ -1,0 +1,7 @@
+fragment PlayerFields on Player {
+    id
+    name
+    bnetUrl
+    bnetId
+    server
+}

@@ -1,0 +1,8 @@
+fragment GamePlayerFields on GamePlayer {
+    id
+    race
+    innocentCount
+    guiltyCount
+    evidence
+    updatedAt
+}
