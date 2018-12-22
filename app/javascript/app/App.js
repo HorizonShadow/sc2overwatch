@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
-import {BrowserRouter, Route} from 'react-router-dom';
+import {BrowserRouter, Redirect, Route} from 'react-router-dom';
 import ApolloClient from 'apollo-boost';
 import {ApolloProvider} from 'react-apollo';
 import PlayerList from "./components/players/PlayerList";
@@ -14,9 +14,7 @@ import GamePlayerList from "./components/game_players/GamePlayerList";
 import { SnackbarProvider } from 'notistack';
 import GameList from "./components/games/GameList";
 import { blue, orange } from '@material-ui/core/colors';
-import { createBrowserHistory } from 'history';
 
-const history = createBrowserHistory();
 const theme = createMuiTheme({
     palette: {
         type: 'dark',
@@ -69,6 +67,9 @@ class App extends Component {
                                     <Route exact path={'/players'} component={PlayerList} />
                                     <Route exact path={'/recent'} component={GamePlayerList}/>
                                     <Route exact path={'/players/:playerId/games'} component={({match: { params }}) => <GameList playerId={params.playerId} /> } />
+                                    <Route exact path={'/'} component={() => (
+                                        <Redirect to={'/recent'} />
+                                    )} />
                                 </Grid>
                                 <UploadModal />
                             </div>
