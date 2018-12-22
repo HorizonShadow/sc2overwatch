@@ -85,4 +85,4 @@ production:
   <<: *default
   database: gre_sc2overwatch_production
   username: gre_sc2overwatch
-  password: <%= ENV['RAILS-SC2OVERWATCH_DATABASE_PASSWORD'] %>
+  password: <%= ENV['SC2OVERWATCH_DATABASE_PASSWORD'] %>
