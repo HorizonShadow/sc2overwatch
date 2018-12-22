@@ -54,3 +54,4 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'graphiql-rails', group: :development
+gem 'sc2replaystats', git: 'https://github.com/HorizonShadow/ruby-sc2replaystats.git'

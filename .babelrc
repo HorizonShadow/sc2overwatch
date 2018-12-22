@@ -24,6 +24,5 @@
     ],
     ["transform-decorators-legacy"],
     ["transform-runtime"],
-    ["react-hot-loader/babel"]
   ]
 }

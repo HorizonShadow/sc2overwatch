@@ -90,7 +90,6 @@ class ReplayForm extends React.Component {
             players: players,
             game_id: replay_id,
             uploadStep: 1,
-            uploading: false
         });
     };
 
@@ -142,7 +141,6 @@ class ReplayForm extends React.Component {
             submitting,
             name,
             uploadStep,
-            uploading,
             players,
             evidence
         } = this.state;
@@ -155,7 +153,7 @@ class ReplayForm extends React.Component {
                         <Step>
                             <StepLabel>Upload a replay</StepLabel>
                             <StepContent>
-                                <ReplayDropzone loading={uploading} onUploadFinished={this.handleUploadFinished}/>
+                                <ReplayDropzone onUploadFinished={this.handleUploadFinished}/>
                             </StepContent>
                         </Step>
                         <Step>

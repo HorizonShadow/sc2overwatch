@@ -2,8 +2,8 @@ class ReplayController < ApplicationController
   def upload
     file = params[:file].tempfile
     client = Sc2replaystats::Client.new(
-      Rails.application.credentials['sc2replaystats_auth'],
-      Rails.application.credentials['sc2replaystats_hash']
+      Rails.application.credentials.config[:sc2replaystats_auth],
+      Rails.application.credentials.config[:sc2replaystats_hash]
     )
     replay = Sc2replaystats::Replay.new(client)
     resp = replay.upload(file)

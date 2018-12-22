@@ -1,6 +1,8 @@
 import React from 'react';
 import {CircularProgress, Typography, withStyles} from "@material-ui/core";
 import Dropzone from "react-dropzone";
+import classNames from 'classnames';
+import {withSnackbar} from "notistack";
 
 const styles = {
     input: {
@@ -15,6 +17,7 @@ const styles = {
     },
 };
 
+@withSnackbar
 @withStyles(styles)
 class ReplayDropzone extends React.Component {
 
@@ -23,7 +26,7 @@ class ReplayDropzone extends React.Component {
     };
 
     handleDrop = async files => {
-        const { onUploadFinished } = this.props;
+        const { onUploadFinished, onError, enqueueSnackbar } = this.props;
         this.setState({ uploading: true });
         const formData = new FormData();
         formData.append('file', files[0]);
@@ -38,9 +41,13 @@ class ReplayDropzone extends React.Component {
                 replay_id: json.replay_id
             });
         } catch(e) {
+            enqueueSnackbar("An error occurred while processing the replay", { variant: 'error' });
             console.log(e);
+        } finally {
+            this.setState({
+                uploading: false
+            });
         }
-
     };
 
     render() {
@@ -52,9 +59,10 @@ class ReplayDropzone extends React.Component {
             onDrop={this.handleDrop}
           >
               {
-                  () => (
-                      <div className={classes.dropzoneRoot}>
-                          <input className={classes.input}/>
+                  ({getRootProps, getInputProps, isDragActive}) => (
+                      <div className={classNames(classes.dropzoneRoot, 'dropzone', { 'dropzone--isActive': isDragActive })}
+                           {...getRootProps()}>
+                          <input className={classes.input} {...getInputProps()} />
                           <div>
                               {
                                   uploading
