@@ -1,0 +1,7 @@
+#import './AccusedPlayerFields.graphql'
+
+query GET_GAMES($playerId: ID!) {
+    games(playerId: $playerId) {
+        ...AccusedPlayerFields
+    }
+}

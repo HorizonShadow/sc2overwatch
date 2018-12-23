@@ -1,5 +1,4 @@
 import React from 'react';
-import gql from "graphql-tag";
 import {graphql, withApollo} from "react-apollo";
 import {
     Grid,
@@ -12,29 +11,15 @@ import {withStyles} from "@material-ui/core/styles";
 import Flag from "../Flag";
 import ListCard from "../ListCard";
 import BnetLink from "../BnetLink";
-import PlayerFields from '../../graphql/PlayerFields.graphql';
-import GamePlayerFields from '../../graphql/GamePlayerFields.graphql';
 import {Link} from "react-router-dom";
 import Loader from "../Loader";
+import GET_PLAYERS from '../../graphql/GetPlayers.graphql';
 
 const styles = theme => ({
     item: {
         padding: theme.spacing.unit * 2,
     }
 });
-
-const GET_PLAYERS = gql`    
-    {
-        players {
-            ...PlayerFields
-            gamePlayers {
-                ...GamePlayerFields
-            }
-        }
-    }
-    ${PlayerFields}
-    ${GamePlayerFields}
-`;
 
 
 @withApollo

@@ -1,30 +1,8 @@
 import React from 'react';
-import gql from "graphql-tag";
-import GameFields from '../../graphql/GameFields.graphql';
 import {graphql} from "react-apollo";
-import GamePlayerFields from '../../graphql/GamePlayerFields.graphql';
-import PlayerFields from '../../graphql/PlayerFields.graphql';
 import GameCard from "../GameCard";
 import Loader from "../Loader";
-const GET_GAMES = gql`
-    query GET_GAMES($playerId: ID!) {
-        games(playerId: $playerId) {
-            ...GamePlayerFields
-            game {
-                ...GameFields
-                players {
-                    ...PlayerFields
-                }
-            }
-            player {
-                ...PlayerFields
-            }
-        }
-    }
-    ${GameFields}
-    ${GamePlayerFields}
-    ${PlayerFields}
-`;
+import GET_GAMES from '../../graphql/GetGames.graphql';
 
 @graphql(GET_GAMES)
 class GameList extends React.Component {

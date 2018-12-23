@@ -1,0 +1,7 @@
+#import './AccusedPlayerFields.graphql'
+
+query GET_ACCUSED_PLAYERS {
+    accusedPlayers {
+        ...AccusedPlayerFields
+    }
+}

@@ -18,11 +18,10 @@ import {
 import { graphql } from 'react-apollo';
 import GamePlayerInfo from "./GamePlayerInfo";
 import SubmitButton from "../SubmitButton";
-import gql from "graphql-tag";
-import GamePlayerFields from '../../graphql/GamePlayerFields.graphql';
 import VerdictRadios from "./VerdictRadios";
 import WinnerSelect from "./WinnerSelect";
 import { withSnackbar } from "notistack";
+import ACCUSE_PLAYER from '../../graphql/AccusePlayer.graphql';
 
 const styles = theme => ({
     media: {
@@ -47,17 +46,6 @@ const styles = theme => ({
         marginTop: theme.spacing.unit * 3
     }
 });
-
-const ACCUSE_PLAYER = gql`
-    mutation ACCUSE_PLAYER($gamePlayerId: ID!, $winnerId: ID!, $verdict: String!) {
-        accusePlayer(gamePlayerId: $gamePlayerId, winnerId: $winnerId, verdict: $verdict) {
-            gamePlayer {
-                ...GamePlayerFields
-            }
-        }
-    }
-    ${GamePlayerFields}
-`;
 
 @withSnackbar
 @graphql(ACCUSE_PLAYER)

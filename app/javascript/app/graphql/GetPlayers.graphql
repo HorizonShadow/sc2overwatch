@@ -1,0 +1,11 @@
+#import './PlayerFields.graphql'
+#import './GamePlayerFields.graphql'
+
+query GET_PLAYERS {
+    players {
+        ...PlayerFields
+        gamePlayers {
+            ...GamePlayerFields
+        }
+    }
+}

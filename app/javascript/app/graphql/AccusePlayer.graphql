@@ -1,0 +1,9 @@
+#import './GamePlayerFields.graphql'
+
+mutation ACCUSE_PLAYER($gamePlayerId: ID!, $winnerId: ID!, $verdict: String!) {
+    accusePlayer(gamePlayerId: $gamePlayerId, winnerId: $winnerId, verdict: $verdict) {
+        gamePlayer {
+            ...GamePlayerFields
+        }
+    }
+}

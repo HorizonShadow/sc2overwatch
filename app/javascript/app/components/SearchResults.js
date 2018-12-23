@@ -1,6 +1,4 @@
 import React from 'react';
-import gql from "graphql-tag";
-import PlayerFields from "../graphql/PlayerFields.graphql";
 import {graphql, withApollo} from "react-apollo";
 import Loader from "./Loader";
 import {
@@ -9,6 +7,7 @@ import {
     Paper,
     withStyles
 } from '@material-ui/core';
+import SEARCH_PLAYERS from '../graphql/SearchPlayers.graphql';
 import {Link} from "react-router-dom";
 
 const styles = {
@@ -19,15 +18,6 @@ const styles = {
         zIndex: 1
     }
 };
-
-const SEARCH_PLAYERS = gql`
-    query SEARCH_PLAYERS($query: String!) {
-        searchPlayers(query: $query) {
-            ...PlayerFields
-        }
-    }
-    ${PlayerFields}
-`;
 
 @withApollo
 @withStyles(styles)

@@ -1,0 +1,16 @@
+#import './PlayerFields.graphql'
+#import './GamePlayerFields.graphql'
+#import './GameFields.graphql'
+
+fragment AccusedPlayerFields on GamePlayer {
+    ...GamePlayerFields
+    player {
+        ...PlayerFields
+    }
+    game {
+        ...GameFields
+        players {
+            ...PlayerFields
+        }
+    }
+}

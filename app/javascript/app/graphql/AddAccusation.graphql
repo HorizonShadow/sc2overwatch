@@ -1,0 +1,9 @@
+#import './AccusedPlayerFields.graphql'
+
+mutation ADD_ACCUSATION($playerId: ID!, $gameId: ID!, $evidence: String!) {
+    addAccusation(playerId: $playerId, evidence: $evidence, gameId: $gameId) {
+        gamePlayer {
+            ...AccusedPlayerFields
+        }
+    }
+}

@@ -1,0 +1,7 @@
+#import './PlayerFields.graphql'
+
+query SEARCH_PLAYERS($query: String!) {
+    searchPlayers(query: $query) {
+        ...PlayerFields
+    }
+}

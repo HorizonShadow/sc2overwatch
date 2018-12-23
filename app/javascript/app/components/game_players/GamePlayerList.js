@@ -1,32 +1,11 @@
 import React from 'react';
 import {graphql} from "react-apollo";
-import GamePlayerFields from '../../graphql/GamePlayerFields.graphql';
-import PlayerFields from '../../graphql/PlayerFields.graphql';
-import GameFields from '../../graphql/GameFields.graphql';
-import gql from "graphql-tag";
 import GameCard from "../GameCard";
 import Loader from "../Loader";
+import GET_ACCUSED_PLAYERS from '../../graphql/GetAccusedPlayers.graphql';
 
 
-@graphql(gql`
-    {
-        accusedPlayers {
-            ...GamePlayerFields
-            player {
-                ...PlayerFields
-            }
-            game {
-                ...GameFields
-                players {
-                    ...PlayerFields
-                }
-            }
-        }
-    }
-    ${GamePlayerFields}
-    ${PlayerFields}
-    ${GameFields}
-`)
+@graphql(GET_ACCUSED_PLAYERS)
 class GamePlayerList extends React.Component {
 
     componentWillMount() {

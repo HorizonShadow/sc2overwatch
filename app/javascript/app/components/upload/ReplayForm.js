@@ -16,61 +16,13 @@ import { withSnackbar } from 'notistack';
 import ReplayDropzone from "../ReplayDropzone";
 import PlayerSelect from "./PlayerSelect";
 import EvidenceTextField from "./EvidenceTextField";
-import GamePlayerFields from '../../graphql/GamePlayerFields.graphql';
-import PlayerFields from '../../graphql/PlayerFields.graphql';
-import gql from "graphql-tag";
-import GameFields from '../../graphql/GameFields.graphql';
-
-const GET_ACCUSED_PLAYERS = gql`
-    query GET_ACCUSED_PLAYERS {
-        accusedPlayers {
-            ...GamePlayerFields
-            player {
-                ...PlayerFields
-            }
-            game {
-                ...GameFields
-                players {
-                    ...PlayerFields
-                }
-            }
-        }
-    }
-    ${GamePlayerFields}
-    ${PlayerFields}
-    ${GameFields}
-`;
-
-const GET_PLAYERS = gql`
-    query GET_PLAYERS {
-        players {
-            ...PlayerFields
-            gamePlayers {
-                ...GamePlayerFields
-            }
-        }
-    }
-    ${PlayerFields}
-    ${GamePlayerFields}
-`;
+import ADD_ACCUSATION from '../../graphql/AddAccusation.graphql';
+import GET_ACCUSED_PLAYERS from '../../graphql/GetAccusedPlayers.graphql'
+import GET_PLAYERS from '../../graphql/GetPlayers.graphql';
 
 @withSnackbar
 @withApollo
-@graphql(gql`
-    mutation ADD_ACCUSATION($playerId: ID!, $gameId: ID!, $evidence: String!) {
-        addAccusation(playerId: $playerId, evidence: $evidence, gameId: $gameId) {
-            gamePlayer {
-                ...GamePlayerFields
-                player {
-                    ...PlayerFields
-                }
-            }
-        }
-    }
-    ${GamePlayerFields}
-    ${PlayerFields}
-    ${GameFields}
-`, {
+@graphql(ADD_ACCUSATION, {
     options: {
         update: (cache, {data: { addAccusation }}) => {
             try {
