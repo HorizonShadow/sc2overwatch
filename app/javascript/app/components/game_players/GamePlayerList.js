@@ -37,6 +37,7 @@ class GamePlayerList extends React.Component {
 
     render() {
         const {data: {loading, error, accusedPlayers} } = this.props;
+        console.log(this.props);
         if (loading) return <Loader />;
         if (error) return 'Error';
         return (

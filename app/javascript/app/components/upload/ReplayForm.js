@@ -19,6 +19,7 @@ import EvidenceTextField from "./EvidenceTextField";
 import GamePlayerFields from '../../graphql/GamePlayerFields.graphql';
 import PlayerFields from '../../graphql/PlayerFields.graphql';
 import gql from "graphql-tag";
+import GameFields from '../../graphql/GameFields.graphql';
 
 const GET_ACCUSED_PLAYERS = gql`
     query GET_ACCUSED_PLAYERS {
@@ -27,19 +28,30 @@ const GET_ACCUSED_PLAYERS = gql`
             player {
                 ...PlayerFields
             }
+            game {
+                ...GameFields
+                players {
+                    ...PlayerFields
+                }
+            }
         }
     }
     ${GamePlayerFields}
     ${PlayerFields}
+    ${GameFields}
 `;
 
 const GET_PLAYERS = gql`
     query GET_PLAYERS {
         players {
             ...PlayerFields
+            gamePlayers {
+                ...GamePlayerFields
+            }
         }
     }
     ${PlayerFields}
+    ${GamePlayerFields}
 `;
 
 @withSnackbar
@@ -57,6 +69,7 @@ const GET_PLAYERS = gql`
     }
     ${GamePlayerFields}
     ${PlayerFields}
+    ${GameFields}
 `, {
     options: {
         update: (cache, {data: { addAccusation }}) => {
@@ -69,13 +82,18 @@ const GET_PLAYERS = gql`
             } catch(e) {
                 console.error("Accused players not loaded yet");
             }
-            const { players } = cache.readQuery({ query: GET_PLAYERS });
-            const player = players.find(c => c.id === addAccusation.gamePlayer.player.id);
-            if(!player) {
-                cache.writeQuery({
-                    query: GET_PLAYERS,
-                    data: { players: players.concat([ addAccusation.gamePlayer.player ])}
-                })
+
+            try {
+                const { players } = cache.readQuery({ query: GET_PLAYERS });
+                const player = players.find(c => c.id === addAccusation.gamePlayer.player.id);
+                if(!player) {
+                    cache.writeQuery({
+                        query: GET_PLAYERS,
+                        data: {players: players.concat([addAccusation.gamePlayer.player])}
+                    })
+                }
+            } catch(e) {
+                console.error("Players not loaded yet");
             }
         }
     }
