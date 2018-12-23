@@ -5,6 +5,7 @@ import PlayerFields from '../../graphql/PlayerFields.graphql';
 import GameFields from '../../graphql/GameFields.graphql';
 import gql from "graphql-tag";
 import GameCard from "../GameCard";
+import Loader from "../Loader";
 
 
 @graphql(gql`
@@ -36,7 +37,7 @@ class GamePlayerList extends React.Component {
 
     render() {
         const {data: {loading, error, accusedPlayers} } = this.props;
-        if (loading) return 'Loading';
+        if (loading) return <Loader />;
         if (error) return 'Error';
         return (
           <React.Fragment>
