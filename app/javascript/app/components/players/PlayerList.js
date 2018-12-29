@@ -29,7 +29,7 @@ class PlayerList extends React.Component {
 
     componentWillMount() {
         const { client } = this.props;
-        client.writeData({ data: { selectedNav: 1 }})
+        client.writeData({ data: { selectedNav: 1 }});
         window.gtag('event', 'screen_view', {
             'screen_name': 'Player List'
         });

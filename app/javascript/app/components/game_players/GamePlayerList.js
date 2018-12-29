@@ -10,13 +10,12 @@ class GamePlayerList extends React.Component {
 
     componentWillMount() {
         window.gtag('event', 'screen_view', {
-            'screen_name': 'Game Player List'
+            'screen_name': 'Recent Reports'
         });
     }
 
     render() {
         const {data: {loading, error, accusedPlayers} } = this.props;
-        console.log(this.props);
         if (loading) return <Loader />;
         if (error) return 'Error';
         return (

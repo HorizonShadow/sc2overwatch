@@ -76,14 +76,25 @@ class GamePlayerExpansion extends React.Component {
             });
         } catch(e) {
             enqueueSnackbar("You've already reported this player", { variant: 'error' });
+            gtag('event', 'exception', {
+                'description': e,
+                'fatal': false
+            });
             console.log(e);
         } finally {
             this.setState({ submitting: false });
+            gtag('event', 'reported player', {
+                'event_label': game_player.id
+            });
         }
 
     };
 
     handleDownloadClick = () => {
+        const { game_player } = this.props;
+        gtag('event', `download replay clicked`, {
+            'event_label': game_player.id
+        });
         this.setState({
             step: 1
         })

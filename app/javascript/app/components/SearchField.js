@@ -37,6 +37,9 @@ class SearchField extends React.Component {
         }
         this.changeHandle = setTimeout(() => {
             this.changeHandle = null;
+            gtag('event', 'search', {
+                'event_label': query
+            });
             client.writeData({
                 data: {
                     q: query

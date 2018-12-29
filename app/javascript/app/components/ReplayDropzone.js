@@ -42,6 +42,10 @@ class ReplayDropzone extends React.Component {
             });
         } catch(e) {
             enqueueSnackbar("An error occurred while processing the replay", { variant: 'error' });
+            gtag('event', 'exception', {
+                description: e,
+                fatal: false
+            });
             console.log(e);
         } finally {
             this.setState({

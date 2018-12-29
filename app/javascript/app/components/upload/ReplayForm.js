@@ -86,8 +86,16 @@ class ReplayForm extends React.Component {
                 }
             });
             enqueueSnackbar('Replay Uploaded', { variant: 'success' });
+            gtag('event', 'Successfully uploaded replay', {
+                'event_label': game_id
+            });
         } catch(e) {
             enqueueSnackbar("You've already reported this player", { variant: 'error' });
+            console.error(e);
+            gtag('event', 'exception', {
+                description: e,
+                fatal: false
+            });
         } finally {
             this.setState({
                 submitting: false

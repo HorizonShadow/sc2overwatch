@@ -8,8 +8,9 @@ import GET_GAMES from '../../graphql/GetGames.graphql';
 class GameList extends React.Component {
 
     componentWillMount() {
+        const { playerId } = this.props;
         window.gtag('event', 'screen_view', {
-            'screen_name': 'Game List'
+            'screen_name': `Game List - ${playerId}`
         });
     }
     render() {

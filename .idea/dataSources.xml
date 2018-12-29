@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="Rails sc2overwatch: test" uuid="4dfad27a-79ba-43f0-be57-5ec24de3946f">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>$PROJECT_DIR$/config/database.yml</remarks>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://127.0.0.1:5432/rails-sc2overwatch_test</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="Rails sc2overwatch: development" uuid="dbbb955d-721d-4351-9c1d-46ae6d700c11">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>$PROJECT_DIR$/config/database.yml</remarks>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://127.0.0.1:5432/rails-sc2overwatch_development</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="Rails sc2overwatch: production" uuid="f5b38489-a4de-4783-898f-baf3dd9570b0">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>$PROJECT_DIR$/config/database.yml</remarks>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://127.0.0.1:5432/gre_sc2overwatch_production</jdbc-url>
+    </data-source>
+  </component>
+</project>

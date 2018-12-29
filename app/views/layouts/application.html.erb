@@ -9,14 +9,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="theme-color" content="#000000">
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-60014640-1"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-131467038-1"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag() {dataLayer.push(arguments);}
-        window.gtag('js', new Date());
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
 
-        window.gtag('config', 'US-6014640-1', { 'app_name': 'SCIIOverwatch' });
+        gtag('config', 'UA-131467038-1', {
+            'app_name': 'SC2Overwatch',
+            'app_version': '1.0'
+        });
     </script>
+
     <!--
       manifest.json provides metadata used when your web app is added to the
       homescreen on Android. See https://developers.google.com/web/fundamentals/web-app-manifest/
@@ -27,7 +31,7 @@
   </head>
 
   <body>
-    <div id="root" />
+    <div id="root"></div>
     <%= javascript_pack_tag 'application' %>
   </body>
 </html>

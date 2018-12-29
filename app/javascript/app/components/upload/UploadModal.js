@@ -27,9 +27,7 @@ const GET_MODAL_STATE = gql`
 class UploadModal extends React.Component {
 
     componentDidMount() {
-        window.gtag('event', 'screen_view', {
-            'screen_name': 'Upload Modal'
-        });
+        window.gtag('event', 'Open upload modal');
     }
 
     render() {
