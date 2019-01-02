@@ -15,16 +15,24 @@ class ReplayController < ApplicationController
         sleep 1
         next
       end
-      replay_info = replay.replay_info(upload_status['replay_id'], :players)
+      replay_info = replay.replay_info(upload_status['replay_id'], :players, :map)
+
+      map_image_path = File.join(Rails.root, 'public/img/maps/', replay_info['map']['map_image'])
+      unless File.exists?(map_image_path)
+        map_url = URI.parse("http://sc2replaystats.com/images/maps/large/#{replay_info['map']['map_image']}")
+        File.write(map_image_path, Net::HTTP.get(map_url), 'wb')
+      end
+
       game = Game.where(id: replay_info['replay_id']).first_or_create(
         id: replay_info['replay_id'],
-        map: replay_info['map_name'],
+        map: replay_info['map']['map_name'],
         date: replay_info['replay_date'],
         url: replay_info['replay_url'],
         format: replay_info['format'],
         game_type: replay_info['game_type'],
         season_id: replay_info['season_id'],
-        replay_version: replay_info['replay_version']
+        replay_version: replay_info['replay_version'],
+        map_image: replay_info['map']['map_image']
       )
       replay_info['players'].each do |data|
         player = Player.where(id: data['players_id']).first_or_create(

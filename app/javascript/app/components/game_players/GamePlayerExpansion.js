@@ -122,6 +122,7 @@ class GamePlayerExpansion extends React.Component {
     render() {
         const { classes, game_player } = this.props;
         const { step, winner, submitting, verdict } = this.state;
+        console.log(game_player);
         return(
             <form onSubmit={this.submit}>
                 <ExpansionPanel classes={{expanded: classes.expansionSummaryExpanded}}>
@@ -132,7 +133,7 @@ class GamePlayerExpansion extends React.Component {
                     }}>
                     <CardMedia
                         className={classes.media}
-                        image={`/img/maps/${game_player.game.map.split(' ').join('_')}.jpg`}
+                        image={`/img/maps/${game_player.game.mapImage}`}
                     />
                         <CardContent>
                             <GamePlayerInfo game_player={game_player}/>

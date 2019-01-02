@@ -5,4 +5,5 @@ fragment GameFields on Game {
     url
     format
     gameType
+    mapImage
 }

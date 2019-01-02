@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_20_000746) do
+ActiveRecord::Schema.define(version: 2019_01_02_184605) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 2018_12_20_000746) do
     t.string "replay_version"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "map_image"
   end
 
   create_table "players", force: :cascade do |t|
