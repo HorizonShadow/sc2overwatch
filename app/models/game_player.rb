@@ -1,5 +1,5 @@
 class GamePlayer < ApplicationRecord
   belongs_to :player
   belongs_to :game
-  has_many :voters
+  has_many :voters, dependent: :destroy
 end
