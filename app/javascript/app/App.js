@@ -41,7 +41,7 @@ const styles = theme => ({
 });
 
 const client = new ApolloClient({
-    uri: `http://${window.location.host}/graphql`,
+    uri: `${window.location.protocol}://${window.location.host}/graphql`,
     clientState: {
         defaults: {
             selectedNav: 0,
