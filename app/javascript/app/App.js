@@ -47,7 +47,10 @@ const client = new ApolloClient({
             selectedNav: 0,
             uploadModalOpen: false,
             q: '',
-            searchOpen: false
+            searchOpen: false,
+            evidence: '',
+            selectedPlayer: '',
+            uploadStep: 0
         }
     }
 });

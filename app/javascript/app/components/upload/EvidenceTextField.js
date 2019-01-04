@@ -1,15 +1,27 @@
 import React from 'react';
 import {TextField} from "@material-ui/core";
+import {withApollo, graphql} from "react-apollo";
+import gql from "graphql-tag";
 
+@withApollo
+@graphql(gql`
+    {
+        evidence @client
+    }
+`)
 class EvidenceTextField extends React.Component {
 
     handleChange = e => {
-        const { onChange } = this.props;
-        onChange(e.target.value);
+        const { client } = this.props;
+        client.writeData({
+            data: {
+                evidence: e.target.value
+            }
+        })
     };
 
     render() {
-        const { value } = this.props;
+        const { data: { evidence } } = this.props;
         return(
             <TextField
                 label={'Evidence'}
@@ -17,7 +29,7 @@ class EvidenceTextField extends React.Component {
                 multiline
                 fullWidth
                 helperText={'*required'}
-                value={value}
+                value={evidence}
                 onChange={this.handleChange}
             />
         )

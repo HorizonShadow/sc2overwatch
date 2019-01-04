@@ -1,11 +1,24 @@
 import React from 'react';
 import {MenuItem, TextField} from "@material-ui/core";
+import gql from "graphql-tag";
+import {graphql, withApollo} from 'react-apollo';
 
+@withApollo
+@graphql(gql`
+    {
+        selectedPlayer @client      
+    } 
+`)
 class PlayerSelect extends React.Component {
 
     handleChange = e => {
-        const { onChange } = this.props;
-        onChange(e.target.value);
+        const { client } = this.props;
+        client.writeData({
+            data: {
+                selectedPlayer: e.target.value
+            }
+        });
+
     };
 
     render() {

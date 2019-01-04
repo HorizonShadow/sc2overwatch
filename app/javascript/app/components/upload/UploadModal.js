@@ -15,10 +15,19 @@ import GET_ACCUSED_PLAYERS from "../../graphql/GetAccusedPlayers.graphql";
 import GET_PLAYERS from "../../graphql/GetPlayers.graphql";
 import gql from "graphql-tag";
 import {withSnackbar} from "notistack";
+import AccusationSteps from "./AccusationSteps";
 
-const GET_MODAL_STATE = gql`
+const GET_MODAL_OPEN = gql`
     {
         uploadModalOpen @client
+    }
+`;
+
+const GET_STATE = gql`    
+    {
+        evidence @client
+        selectedPlayer @client
+        uploadStep @client
     }
 `;
 
@@ -57,7 +66,7 @@ const styles = theme => ({
         }
     }
 })
-@graphql(GET_MODAL_STATE)
+@graphql(GET_MODAL_OPEN)
 @withStyles(styles, { withTheme: true})
 @withMobileDialog()
 @withSnackbar
@@ -68,8 +77,6 @@ class UploadModal extends React.Component {
     }
 
     state = {
-        name: '',
-        evidence: '',
         players: [],
         uploadStep: 0,
     };
@@ -83,13 +90,17 @@ class UploadModal extends React.Component {
     };
 
     formValid() {
-        const { name, uploadStep, evidence } = this.state;
-        return name.toString().length > 0 && uploadStep === 1 && evidence.length > 0;
+        const { uploadStep } = this.state;
+        const { client: { cache } } = this.props;
+        const {evidence, selectedPlayer} = cache.readQuery({
+            query: GET_STATE
+        });
+        return selectedPlayer.toString().length > 0 && uploadStep === 1 && evidence.length > 0;
     }
 
     handleFormSubmit = async e => {
         const { mutate, enqueueSnackbar, client } = this.props;
-        const { game_id, name, evidence } = this.state;
+        const { game_id } = this.state;
         e.preventDefault();
         this.setState({ submitting: true });
         try {
@@ -144,11 +155,10 @@ class UploadModal extends React.Component {
         } = this.props;
         const {
             submitting,
-            name,
             uploadStep,
             players,
-            evidence
         } = this.state;
+        console.log(this.props.client);
         return(
             <Dialog
                 open={uploadModalOpen}
@@ -159,28 +169,8 @@ class UploadModal extends React.Component {
             >
                 <DialogTitle>Report a player</DialogTitle>
                 <DialogContent>
-                    <Stepper activeStep={uploadStep} orientation={'vertical'}>
-                        <Step>
-                            <StepLabel>Upload a replay</StepLabel>
-                            <StepContent>
-                                <ReplayDropzone onUploadFinished={this.handleUploadFinished}/>
-                            </StepContent>
-                        </Step>
-                        <Step>
-                            <StepLabel>Enter Details</StepLabel>
-                            <StepContent>
-                                <PlayerSelect
-                                    players={players}
-                                    onChange={this.handlePlayerChange}
-                                    value={name}
-                                />
-                                <EvidenceTextField
-                                    value={evidence}
-                                    onChange={this.handleEvidenceChange}
-                                />
-                            </StepContent>
-                        </Step>
-                    </Stepper>
+                    <AccusationSteps />
+
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={this.handleCloseClick}>Close</Button>
