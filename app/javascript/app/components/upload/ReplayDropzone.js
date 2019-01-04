@@ -26,7 +26,7 @@ class ReplayDropzone extends React.Component {
     };
 
     handleDrop = async files => {
-        const { onUploadFinished, onError, enqueueSnackbar } = this.props;
+        const { onUploadFinished, enqueueSnackbar } = this.props;
         this.setState({ uploading: true });
         const formData = new FormData();
         formData.append('file', files[0]);

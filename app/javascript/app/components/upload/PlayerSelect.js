@@ -22,7 +22,7 @@ class PlayerSelect extends React.Component {
     };
 
     render() {
-        const { players, value } = this.props;
+        const { players, data: { selectedPlayer } } = this.props;
         return(
           <TextField
             select
@@ -30,7 +30,7 @@ class PlayerSelect extends React.Component {
             label={'Name'}
             fullWidth
             onChange={this.handleChange}
-            value={value}
+            value={selectedPlayer}
           >
               {
                   players.map(p => (

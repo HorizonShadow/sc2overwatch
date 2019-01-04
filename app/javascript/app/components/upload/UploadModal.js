@@ -6,7 +6,7 @@ import {
     withStyles
 } from '@material-ui/core';
 import {graphql, withApollo} from "react-apollo";
-import ReplayDropzone from "../ReplayDropzone";
+import ReplayDropzone from "./ReplayDropzone";
 import PlayerSelect from "./PlayerSelect";
 import EvidenceTextField from "./EvidenceTextField";
 import SubmitButton from "../SubmitButton";
@@ -72,27 +72,17 @@ const styles = theme => ({
 @withSnackbar
 class UploadModal extends React.Component {
 
+    state = {
+        submitting: false
+    };
+
     componentDidMount() {
         window.gtag('event', 'Open upload modal');
     }
 
-    state = {
-        players: [],
-        uploadStep: 0,
-    };
-
-    handleUploadFinished = ({players, replay_id}) => {
-        this.setState({
-            players: players,
-            game_id: replay_id,
-            uploadStep: 1,
-        });
-    };
-
     formValid() {
-        const { uploadStep } = this.state;
         const { client: { cache } } = this.props;
-        const {evidence, selectedPlayer} = cache.readQuery({
+        const {evidence, selectedPlayer, uploadStep} = cache.readQuery({
             query: GET_STATE
         });
         return selectedPlayer.toString().length > 0 && uploadStep === 1 && evidence.length > 0;
@@ -131,14 +121,6 @@ class UploadModal extends React.Component {
 
     };
 
-    handlePlayerChange = name => {
-        this.setState({ name: name });
-    };
-
-    handleEvidenceChange = evidence => {
-        this.setState({ evidence: evidence });
-    };
-
     handleCloseClick = () => {
         const { client } = this.props;
         client.writeData({ data: { uploadModalOpen: false }})
@@ -155,10 +137,7 @@ class UploadModal extends React.Component {
         } = this.props;
         const {
             submitting,
-            uploadStep,
-            players,
         } = this.state;
-        console.log(this.props.client);
         return(
             <Dialog
                 open={uploadModalOpen}
@@ -170,7 +149,6 @@ class UploadModal extends React.Component {
                 <DialogTitle>Report a player</DialogTitle>
                 <DialogContent>
                     <AccusationSteps />
-
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={this.handleCloseClick}>Close</Button>

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Step, StepContent, StepLabel, Stepper} from "@material-ui/core";
-import ReplayDropzone from "./UploadModal";
+import ReplayDropzone from "./ReplayDropzone";
 import gql from "graphql-tag";
 import {graphql, withApollo} from 'react-apollo';
 import PlayerSelect from "./PlayerSelect";
@@ -15,11 +15,23 @@ import EvidenceTextField from "./EvidenceTextField";
 class AccusationSteps extends React.Component {
 
     state = {
+        players: []
+    };
 
+    handleUploadFinished = ({players, replay_id}) => {
+        const { client } = this.props;
+        this.setState({ players: players });
+        client.writeData({
+            data: {
+                uploadStep: 1,
+                gameId: replay_id
+            }
+        })
     };
 
     render() {
-        const { players, data: { uploadStep } } = this.props;
+        const { data: { uploadStep } } = this.props;
+        const { players } = this.state;
         return(
             <Stepper activeStep={uploadStep} orientation={'vertical'}>
                 <Step>
