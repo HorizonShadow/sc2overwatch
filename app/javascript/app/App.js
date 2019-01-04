@@ -3,7 +3,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import {BrowserRouter, Redirect, Route} from 'react-router-dom';
 import ApolloClient from 'apollo-boost';
-import {ApolloProvider} from 'react-apollo';
+import {ApolloProvider, withApollo} from 'react-apollo';
 import PlayerList from "./components/players/PlayerList";
 import { Grid } from "@material-ui/core/es/index";
 import {withStyles} from "@material-ui/core/es/styles/index";
@@ -14,6 +14,9 @@ import GamePlayerList from "./components/game_players/GamePlayerList";
 import { SnackbarProvider } from 'notistack';
 import GameList from "./components/games/GameList";
 import { blue, orange } from '@material-ui/core/colors';
+import { graphql } from "react-apollo";
+import gql from "graphql-tag";
+
 
 const theme = createMuiTheme({
     palette: {
@@ -48,7 +51,6 @@ const client = new ApolloClient({
         }
     }
 });
-
 
 @withStyles(styles, { withTheme: true })
 class App extends Component {

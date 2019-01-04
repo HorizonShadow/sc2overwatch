@@ -22,10 +22,10 @@ const styles = theme => ({
 @withStyles(styles, { withTheme: true })
 class SubmitButton extends React.Component {
     render() {
-        const { loading, disabled, classes } = this.props;
+        const { loading, disabled, classes, onClick } = this.props;
         return(
           <div className={classes.wrapper}>
-              <Button disabled={loading || disabled} type={'submit'}>
+              <Button disabled={loading || disabled} type={'button'} onClick={onClick} >
                   Submit
               </Button>
               {
