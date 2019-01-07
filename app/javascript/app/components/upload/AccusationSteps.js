@@ -9,41 +9,26 @@ import EvidenceTextField from "./EvidenceTextField";
 @withApollo
 @graphql(gql`
     {
-        uploadStep @client
+        upload @client {
+            step
+        }
     }
 `)
 class AccusationSteps extends React.Component {
-
-    state = {
-        players: []
-    };
-
-    handleUploadFinished = ({players, replay_id}) => {
-        const { client } = this.props;
-        this.setState({ players: players });
-        client.writeData({
-            data: {
-                uploadStep: 1,
-                gameId: replay_id
-            }
-        })
-    };
-
     render() {
-        const { data: { uploadStep } } = this.props;
-        const { players } = this.state;
+        const { data: { upload: { step } } } = this.props;
         return(
-            <Stepper activeStep={uploadStep} orientation={'vertical'}>
+            <Stepper activeStep={step} orientation={'vertical'}>
                 <Step>
                     <StepLabel>Upload a replay</StepLabel>
                     <StepContent>
-                        <ReplayDropzone onUploadFinished={this.handleUploadFinished}/>
+                        <ReplayDropzone />
                     </StepContent>
                 </Step>
                 <Step>
                     <StepLabel>Enter Details</StepLabel>
                     <StepContent>
-                        <PlayerSelect players={players} />
+                        <PlayerSelect />
                         <EvidenceTextField />
                     </StepContent>
                 </Step>

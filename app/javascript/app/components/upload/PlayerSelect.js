@@ -2,27 +2,48 @@ import React from 'react';
 import {MenuItem, TextField} from "@material-ui/core";
 import gql from "graphql-tag";
 import {graphql, withApollo} from 'react-apollo';
+import renderWhileLoading from "../../renderWhileLoading";
+import { compose } from 'recompose';
 
+@compose(
+    graphql(gql`
+        query {
+            upload @client {
+                selectedPlayer
+                players {
+                    id
+                    name
+                }
+            }
+        }
+    `),
+    graphql(gql`
+        mutation setSelectedPlayer($player: String!) {
+            setSelectedPlayer(player: $player) @client
+        }
+    `),
+    renderWhileLoading()
+)
 @withApollo
-@graphql(gql`
-    {
-        selectedPlayer @client      
-    } 
-`)
 class PlayerSelect extends React.Component {
-
     handleChange = e => {
-        const { client } = this.props;
-        client.writeData({
-            data: {
-                selectedPlayer: e.target.value
+        this.props.mutate({
+            variables: {
+                player: e.target.value
             }
         });
-
     };
 
     render() {
-        const { players, data: { selectedPlayer } } = this.props;
+        const { data: { loading } } = this.props;
+        const {
+            data: {
+                upload: {
+                    selectedPlayer,
+                    players
+                },
+            }
+        } = this.props;
         return(
           <TextField
             select
@@ -34,7 +55,7 @@ class PlayerSelect extends React.Component {
           >
               {
                   players.map(p => (
-                    <MenuItem key={p.players_id} value={p.players_id}>{p.player.players_name}</MenuItem>
+                      <MenuItem key={p.id} value={p.id}>{p.name}</MenuItem>
                   ))
               }
           </TextField>

@@ -1,11 +1,17 @@
 import React from 'react';
 import {graphql} from "react-apollo";
 import GameCard from "../GameCard";
-import Loader from "../Loader";
 import GET_ACCUSED_PLAYERS from '../../graphql/GetAccusedPlayers.graphql';
+import renderWhileLoading from "../../renderWhileLoading";
+import renderForError from "../../renderForError";
+import {compose} from "recompose";
 
 
-@graphql(GET_ACCUSED_PLAYERS)
+@compose(
+    graphql(GET_ACCUSED_PLAYERS),
+    renderWhileLoading(),
+    renderForError()
+)
 class GamePlayerList extends React.Component {
 
     componentWillMount() {
@@ -15,9 +21,7 @@ class GamePlayerList extends React.Component {
     }
 
     render() {
-        const {data: {loading, error, accusedPlayers} } = this.props;
-        if (loading) return <Loader />;
-        if (error) return 'Error';
+        const {data: {accusedPlayers} } = this.props;
         return (
           <React.Fragment>
               {

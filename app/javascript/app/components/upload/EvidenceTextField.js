@@ -2,22 +2,32 @@ import React from 'react';
 import {TextField} from "@material-ui/core";
 import {withApollo, graphql} from "react-apollo";
 import gql from "graphql-tag";
+import {compose} from "recompose";
 
-@withApollo
-@graphql(gql`
-    {
-        evidence @client
-    }
-`)
+@compose(
+    withApollo,
+    graphql(gql`
+        {
+            upload {
+                evidence @client
+            }
+        }
+    `),
+    graphql(gql`
+        mutation SetEvidence($evidence: String!) {
+            setEvidence(evidence: $evidence) @client
+        }
+    `)
+)
 class EvidenceTextField extends React.Component {
 
     handleChange = e => {
-        const { client } = this.props;
-        client.writeData({
-            data: {
+        const { mutate } = this.props;
+        mutate({
+            variables: {
                 evidence: e.target.value
             }
-        })
+        });
     };
 
     render() {

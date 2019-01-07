@@ -14,6 +14,9 @@ import BnetLink from "../BnetLink";
 import {Link} from "react-router-dom";
 import Loader from "../Loader";
 import GET_PLAYERS from '../../graphql/GetPlayers.graphql';
+import renderWhileLoading from "../../renderWhileLoading";
+import {compose} from "recompose";
+import renderForError from "../../renderForError";
 
 const styles = theme => ({
     item: {
@@ -22,9 +25,13 @@ const styles = theme => ({
 });
 
 
-@withApollo
-@graphql(GET_PLAYERS)
-@withStyles(styles, {withTheme: true})
+@compose(
+    graphql(GET_PLAYERS),
+    withApollo,
+    withStyles(styles, { withTheme: true }),
+    renderWhileLoading(),
+    renderForError()
+)
 class PlayerList extends React.Component {
 
     componentWillMount() {
@@ -36,9 +43,7 @@ class PlayerList extends React.Component {
     }
 
     render() {
-        const { data: {loading, error, players }} = this.props;
-        if (loading) return <Loader />;
-        if (error) return 'error';
+        const { data: { players }} = this.props;
         return (
           <React.Fragment>
             {

@@ -3,6 +3,7 @@ import {CircularProgress, Typography, withStyles} from "@material-ui/core";
 import Dropzone from "react-dropzone";
 import classNames from 'classnames';
 import {withSnackbar} from "notistack";
+import {withApollo} from "react-apollo";
 
 const styles = {
     input: {
@@ -18,6 +19,7 @@ const styles = {
 };
 
 @withSnackbar
+@withApollo
 @withStyles(styles)
 class ReplayDropzone extends React.Component {
 
@@ -26,7 +28,7 @@ class ReplayDropzone extends React.Component {
     };
 
     handleDrop = async files => {
-        const { onUploadFinished, enqueueSnackbar } = this.props;
+        const { enqueueSnackbar, client } = this.props;
         this.setState({ uploading: true });
         const formData = new FormData();
         formData.append('file', files[0]);
@@ -36,9 +38,25 @@ class ReplayDropzone extends React.Component {
                 body: formData,
             });
             const json = await resp.json();
-            onUploadFinished({
-                players: json.players,
-                replay_id: json.replay_id
+            console.log(json);
+            json.players.forEach(p => {
+                p.__typename = 'GamePlayer';
+                p.player.__typename = 'Player';
+            });
+            json.__typename = 'Game';
+            client.writeData({
+                data: {
+                    upload: {
+                        __typename: 'Upload',
+                        step: 1,
+                        players: json.players.map(p => ({
+                            __typename: 'Player',
+                            id: p.players_id,
+                            name: p.player.players_name,
+                        })),
+                        gameId: json.replay_id
+                    }
+                }
             });
         } catch(e) {
             enqueueSnackbar("An error occurred while processing the replay", { variant: 'error' });
@@ -59,9 +77,7 @@ class ReplayDropzone extends React.Component {
         const { uploading } = this.state;
 
         return(
-          <Dropzone
-            onDrop={this.handleDrop}
-          >
+          <Dropzone onDrop={this.handleDrop} >
               {
                   ({getRootProps, getInputProps, isDragActive}) => (
                       <div className={classNames(classes.dropzoneRoot, 'dropzone', { 'dropzone--isActive': isDragActive })}

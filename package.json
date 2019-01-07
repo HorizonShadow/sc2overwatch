@@ -18,7 +18,8 @@
     "react-apollo": "^2.3.3",
     "react-dom": "^16.7.0",
     "react-dropzone": "^8.0.2",
-    "react-router-dom": "^4.3.1"
+    "react-router-dom": "^4.3.1",
+    "recompose": "latest"
   },
   "devDependencies": {
     "webpack-dev-server": "2.11.2"
