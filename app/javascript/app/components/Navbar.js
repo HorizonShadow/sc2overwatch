@@ -5,7 +5,7 @@ import PeopleIcon from '@material-ui/icons/People';
 import { Link } from 'react-router-dom';
 import UploadReplayButton from "./UploadReplayButton";
 import {graphql, withApollo} from "react-apollo";
-import gql from "graphql-tag";
+import GET_SELECTED_NAV from '../graphql/GetSelectedNav.graphql';
 
 const styles = theme => ({
     nav: {
@@ -14,12 +14,6 @@ const styles = theme => ({
         width: '100%'
     }
 });
-
-const GET_SELECTED_NAV = gql`
-    {
-        selectedNav @client
-    }
-`;
 
 @withApollo
 @graphql(GET_SELECTED_NAV)
