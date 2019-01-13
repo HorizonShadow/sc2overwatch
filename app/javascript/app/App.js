@@ -14,8 +14,6 @@ import GamePlayerList from "./components/game_players/GamePlayerList";
 import { SnackbarProvider } from 'notistack';
 import GameList from "./components/games/GameList";
 import { blue, orange } from '@material-ui/core/colors';
-import { graphql } from "react-apollo";
-import gql from "graphql-tag";
 import { uploadDefaults, uploadResolvers } from './resolvers/upload.js';
 
 
