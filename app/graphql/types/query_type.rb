@@ -56,7 +56,7 @@ module Types
     end
 
     def accused_players
-      GamePlayer.where(is_accused: true).limit(25)
+      GamePlayer.where(is_accused: true).limit(25).order(:updated_at)
     end
   end
 end
