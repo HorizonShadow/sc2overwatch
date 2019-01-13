@@ -12,7 +12,6 @@ import Flag from "../Flag";
 import ListCard from "../ListCard";
 import BnetLink from "../BnetLink";
 import {Link} from "react-router-dom";
-import Loader from "../Loader";
 import GET_PLAYERS from '../../graphql/GetPlayers.graphql';
 import renderWhileLoading from "../../renderWhileLoading";
 import {compose} from "recompose";
