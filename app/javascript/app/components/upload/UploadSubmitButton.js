@@ -30,7 +30,7 @@ const GET_STATE = gql`
                         const {accusedPlayers} = cache.readQuery({query: GET_ACCUSED_PLAYERS});
                         cache.writeQuery({
                             query: GET_ACCUSED_PLAYERS,
-                            data: {accusedPlayers: accusedPlayers.concat([addAccusation.gamePlayer])}
+                            data: {accusedPlayers: accusedPlayers.prepend([addAccusation.gamePlayer])}
                         });
                     } catch (e) {
                         console.error("Accused players not loaded yet");
